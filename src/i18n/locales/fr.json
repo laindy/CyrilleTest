@@ -1,0 +1,13 @@
+{
+    "title": "Ma Liste de Tâches",
+    "addTodo": "Ajouter une nouvelle tâche",
+    "searchTodo": "Rechercher une tâche",
+    "filterAll": "Toutes",
+    "filterActive": "Actives",
+    "filterCompleted": "Terminées",
+    "sortBy": "Trier par:",
+    "sortDate": "Date",
+    "sortTitle": "Titre",
+    "noTodosFound": "Aucune tâche trouvée",
+    "noTodosDescription": "Ajoutez une nouvelle tâche ou modifiez vos critères de recherche."
+  }

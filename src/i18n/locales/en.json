@@ -1,0 +1,13 @@
+{
+    "title": "My Todo List",
+    "addTodo": "Add a new task",
+    "searchTodo": "Search for a task",
+    "filterAll": "All",
+    "filterActive": "Active",
+    "filterCompleted": "Completed",
+    "sortBy": "Sort by:",
+    "sortDate": "Date",
+    "sortTitle": "Title",
+    "noTodosFound": "No tasks found",
+    "noTodosDescription": "Add a new task or modify your search criteria."
+  }

@@ -5,15 +5,11 @@ import { useTodoFilters } from '../components/hooks/useTodoFilters';
 import { useTodos } from '../components/hooks/useTodos';
 import { Icon } from '../components/common/Icon';
 import { Alert } from 'react-native';
-
-type FilterType = 'all' | 'active' | 'completed';
-type SortByType = 'createdAt' | 'title';
-type SortOrderType = 'asc' | 'desc';
+import { FilterType, SortByType, SortOrderType } from '../types/todo';
 
 const TodoList: React.FC = () => {
   const { t } = useTranslation();
   const { todos, isLoading, error, addTodo, toggleTodo, deleteTodo, sortTodos } = useTodos();
-
 
   const [newTodo, setNewTodo] = useState('');
   const [filter, setFilter] = useState<FilterType>('all');
@@ -33,7 +29,7 @@ const TodoList: React.FC = () => {
   const handleSortOrderChange = () => {
     const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
     setSortOrder(newOrder);
-    sortTodos(newOrder);
+    sortTodos(sortBy, newOrder);
   };
 
   if (isLoading) return <Text>Loading...</Text>;

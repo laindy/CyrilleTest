@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Toast from 'react-native-toast-message';
 import httpService from '../../service/httpService';
-import { Todo } from '../../types/todo';
+import { SortByType, Todo } from '../../types/todo';
 import { useTranslation } from 'react-i18next';
 import toastService from '../../utils/toastService';
 
@@ -80,15 +80,21 @@ export const useTodos = () => {
     }
   }, []);
 
-  const sortTodos = useCallback((order: 'asc' | 'desc') => {
+  const sortTodos = useCallback((sortBy: SortByType, order: 'asc' | 'desc') => {
     setTodos(prevTodos => 
       [...prevTodos].sort((a, b) => {
-        const titleA = a.title ? a.title.toLowerCase() : '';
-        const titleB = b.title ? b.title.toLowerCase() : '';
-        return order === 'asc' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+        if (sortBy === 'createdAt') {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return order === 'asc' ? dateA - dateB : dateB - dateA;
+        } else {
+          const titleA = a.title ? a.title.toLowerCase() : '';
+          const titleB = b.title ? b.title.toLowerCase() : '';
+          return order === 'asc' ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+        }
       })
     );
-  }, [setTodos]);
+}, [setTodos]);
 
   useEffect(() => {
     loadTodos();

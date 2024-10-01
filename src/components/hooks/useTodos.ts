@@ -35,7 +35,7 @@ export const useTodos = () => {
     if (title.trim()) {
       try {
         const addedTodo = await httpService.addTodo(title.trim());
-        setTodos(prevTodos => [...prevTodos, { ...addedTodo, title: addedTodo.title ? addedTodo.title : 'Untitled' }]);
+        setTodos(prevTodos => [...prevTodos, { ...addedTodo, title }]);
         toastService.success(t('todo.success')); 
         Toast.show({
           type: 'success',
@@ -61,7 +61,7 @@ export const useTodos = () => {
         const updatedTodo = await httpService.updateTodo(id, !todoToUpdate.completed);
         
         setTodos(prevTodos => prevTodos.map(todo => 
-          todo.id === id ? { ...updatedTodo, title: updatedTodo.title ? updatedTodo.title : 'Untitled' } : todo
+          todo.id === id ? { ...updatedTodo, title: todoToUpdate.title } : todo
         ));
       }
     } catch (err) {

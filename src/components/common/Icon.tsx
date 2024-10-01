@@ -12,7 +12,6 @@ export const Icon: React.FC<IconProps> = ({ name, size = 24, color = '#000' }) =
   return (
     <View style={styles.container}>
       <MaterialIcons name={name} size={size} color={color} />
-      <Text style={{ fontSize: 10 }}>{name}</Text>
     </View>
   );
 };

@@ -9,5 +9,11 @@
     "sortDate": "Date",
     "sortTitle": "Title",
     "noTodosFound": "No tasks found",
-    "noTodosDescription": "Add a new task or modify your search criteria."
+    "noTodosDescription": "Add a new task or modify your search criteria.",
+    "success": "Task added successfully!",
+    "error": "Error adding the todo.",
+    "confirmDeleteTitle": "Confirm Deletion",
+    "confirmDeleteMessage": "Are you sure you want to delete this todo?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }

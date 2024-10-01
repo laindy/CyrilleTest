@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Icon } from '../components/common/icon';
 import { useTodoFilters } from '../components/hooks/useTodoFilters';
 import { useTodos } from '../components/hooks/useTodos';
+import { Icon } from '../components/common/Icon';
+import { Alert } from 'react-native';
 
 type FilterType = 'all' | 'active' | 'completed';
 type SortByType = 'createdAt' | 'title';
@@ -11,7 +12,9 @@ type SortOrderType = 'asc' | 'desc';
 
 const TodoList: React.FC = () => {
   const { t } = useTranslation();
-  const { todos, isLoading, error, addTodo, toggleTodo, deleteTodo } = useTodos();
+  const { todos, isLoading, error, addTodo, toggleTodo, deleteTodo, sortTodos } = useTodos();
+
+
   const [newTodo, setNewTodo] = useState('');
   const [filter, setFilter] = useState<FilterType>('all');
   const [sortBy, setSortBy] = useState<SortByType>('createdAt');
@@ -25,6 +28,12 @@ const TodoList: React.FC = () => {
       await addTodo(newTodo);
       setNewTodo('');
     }
+  };
+
+  const handleSortOrderChange = () => {
+    const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortOrder(newOrder);
+    sortTodos(newOrder);
   };
 
   if (isLoading) return <Text>Loading...</Text>;
@@ -44,7 +53,7 @@ const TodoList: React.FC = () => {
             placeholderTextColor="#999"
           />
           <TouchableOpacity style={styles.addButton} onPress={handleAddTodo}>
-            <Icon name="plus" color="white" size={24} />
+            <Icon name="add" color="white" size={24} />
           </TouchableOpacity>
         </View>
 
@@ -93,10 +102,10 @@ const TodoList: React.FC = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.sortOrderButton}
-            onPress={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+            onPress={handleSortOrderChange}
           >
             <Icon 
-              name={sortOrder === 'asc' ? 'chevron-up' : 'chevron-down'} 
+              name={sortOrder === 'asc' ? 'arrow-upward' : 'arrow-downward'}
               size={18} 
               color="#333"
             />
@@ -105,7 +114,7 @@ const TodoList: React.FC = () => {
         
         {filteredAndSortedTodos.length === 0 ? (
           <View style={styles.alert}>
-            <Icon name='alert-circle' color="#3b82f6" size={24} />
+            <Icon name='warning' color="#3b82f6" size={24} />
             <Text style={styles.alertTitle}>{t('noTodosFound')}</Text>
             <Text style={styles.alertDescription}>
               {t('noTodosDescription')}
@@ -130,8 +139,18 @@ const TodoList: React.FC = () => {
                 ]}>
                   {item.title}
                 </Text>
-                <TouchableOpacity onPress={() => deleteTodo(item.id)}>
-                <Icon name="trash-2" size={20} color="#ef4444" />
+                <TouchableOpacity onPress={() => {
+                  Alert.alert(
+                    t('confirmDeleteTitle'),
+                    t('confirmDeleteMessage'),
+                    [
+                      { text: t('cancel'), style: 'cancel' },
+                      { text: t('confirm'), onPress: () => deleteTodo(item.id) },
+                    ],
+                    { cancelable: false }
+                  );
+                }}>
+                  <Icon name="delete" size={20} color="#ef4444" />
                 </TouchableOpacity>
               </View>
             )}

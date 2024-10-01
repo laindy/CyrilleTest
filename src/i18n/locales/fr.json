@@ -9,5 +9,11 @@
     "sortDate": "Date",
     "sortTitle": "Titre",
     "noTodosFound": "Aucune tâche trouvée",
-    "noTodosDescription": "Ajoutez une nouvelle tâche ou modifiez vos critères de recherche."
+    "noTodosDescription": "Ajoutez une nouvelle tâche ou modifiez vos critères de recherche.",
+    "success": "Tâche ajoutée avec succès !",
+    "error": "Erreur lors de l'ajout du todo.",
+    "confirmDeleteTitle": "Confirmer la suppression",
+    "confirmDeleteMessage": "Êtes-vous sûr de vouloir supprimer ce todo ?",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
   }
